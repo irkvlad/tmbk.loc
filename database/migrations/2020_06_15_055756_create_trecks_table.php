@@ -23,7 +23,7 @@ class CreateTrecksTable extends Migration
             $table->float('avg_speed');             /* 60 */
             $table->string('title');                /* Барнаул - группа */
             $table->string('header');               /*В099ВА 138 Hiluxe Рудов М.*/
-            $table->integer('header_id');               /*В099ВА 138 Hiluxe Рудов М.*/
+            $table->int('header_id');               /*В099ВА 138 Hiluxe Рудов М.*/
             $table->string('max_speed_address');    /*ссылка на карту*/
             $table->float('max_speed_lat');         /*ссылка на карту*/
             $table->float('max_speed_lng');         /*ссылка на карту*/
