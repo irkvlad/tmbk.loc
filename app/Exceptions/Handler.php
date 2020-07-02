@@ -50,6 +50,16 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if($request->is('api/*') )
+            return response()->json([
+                'error' => 'Invalid request'
+            ], 404);
+
+        /*if ( is_a($exception, '\Symfony\Component\HttpKernel\Exception\NotFoundHttpException')) {
+              return response()->json([
+                  'error' => 'Ничего не найдено'
+              ], 404);
+          }  */
 
         return parent::render($request, $exception);
     }

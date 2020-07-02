@@ -263,6 +263,7 @@ function save_track($list,$report_id){
     foreach($list as $treck) {
         $device_id = getDevice_id_by_label($treck['header']);
         $device_track_id = mb_substr($treck['data_header'], 0, 10) . ' ' . $treck['start_time'].'#'.$device_id;
+        $‌‌strt=date("Y-m-d", strtotime(mb_substr($treck['data_header'], 0, 10)));
         $rep_spp = Treck::firstOrCreate([
             'device_track_id' => $device_track_id
             , 'data_header' => $treck['data_header']
@@ -277,6 +278,7 @@ function save_track($list,$report_id){
             , 'max_speed_lat' => $treck['max_speed_lat']
             , 'max_speed_lng' => $treck['max_speed_lng']
             , 'report_id' => $report_id
+            , 'date_track' =>$‌‌strt
         ]);
         $i++;
     }

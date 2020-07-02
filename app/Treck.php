@@ -21,5 +21,6 @@ class Treck extends Model
         ,'max_speed_lat'
         ,'max_speed_lng'
         ,'report_id'
+        ,'date_track'
     ];
 }

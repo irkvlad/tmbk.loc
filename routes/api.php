@@ -16,3 +16,9 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('speedy/','Api\SpeedyMoonController@getMoon');
+Route::get('speedy/week','Api\SpeedyMoonController@getWeek');
+Route::get('speedy/day','Api\SpeedyMoonController@getDay');
+
+Route::post('login','Api\Auth\LoginController@login');

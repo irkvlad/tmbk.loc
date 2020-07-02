@@ -17,7 +17,7 @@ Route::post('password/expired', 'Auth\ExpiredPasswordController@postExpired')->n
 
 Route::middleware(['password_expired'])->group(function () {
     Route::get('speed_report', 'OverSpeedController@index')->name('speed_report'); //Трекер отчеты
-    //Route::get('rec_rep.php', 'OverSpeedController@reconciliation_reports'); //Трекер отчеты
+    Route::get('rec_rep.php', 'OverSpeedController@reconciliation_reports'); //Трекер отчеты
     Route::get('/', 'OverSpeedController@speed_reports')->name('home'); //Трекер отчеты
 });
 
