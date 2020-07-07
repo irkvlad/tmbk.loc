@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\LoadReports::class,
+        \App\Console\Commands\LoadGasStation::class,
     ];
 
     /**
@@ -25,6 +26,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
        /* $schedule->command('load_reports')
+            ->everyThirtyMinutes()
+            //->between('23:00', '24:00')
+            ->withoutOverlapping(10);//hourlyAt(53);*/
+
+        /* $schedule->command('load_gas_station')
             ->everyThirtyMinutes()
             //->between('23:00', '24:00')
             ->withoutOverlapping(10);//hourlyAt(53);*/
