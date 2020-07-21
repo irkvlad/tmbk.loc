@@ -1,0 +1,19 @@
+.menu-btn a.navbar-brand.btn.btn-secondary {
+    width: 100%;
+    margin-top: 7pt;
+}
+div.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu a {
+    display: inline-block;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+    background-color: #777;
+}

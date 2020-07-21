@@ -46,7 +46,6 @@ class OverSpeedController extends Controller
             'hash' => $hash,
         ];
         $reportsList = getReports($paramData, 'Отчет_сформированные_список');
-//       dd($reportsList);
 
         $viwParam['list'] = $reportsList['list'];
 
@@ -66,7 +65,7 @@ class OverSpeedController extends Controller
             $viwParam['report_id'] = $reportId; //id - текущий отчет
             $viwParam['report'] = $reportTrack['report']; //Отчет
         }
-//        dd( $reportTrack['report']['sheets'][0]['sections']);
+
         // $list - списка отчетов ,
         // $report_id - id отчета,
         // $report - список треков
@@ -78,6 +77,8 @@ class OverSpeedController extends Controller
      */
     public function reconciliation_reports(){
         set_time_limit(48 * 60);
+        $path_parts = pathinfo($_SERVER['SCRIPT_FILENAME']); // определяем директорию скрипта
+        chdir($path_parts['dirname']); // задаем директорию выполнение скрипта
 
         $fd = fopen("log_schedule.txt", 'a') or die("не удалось создать файл");
 
@@ -134,7 +135,6 @@ class OverSpeedController extends Controller
 
     public function speed_reports(Request $request)
     {
-//      dd($request->user());
         $report_id = $request->get('id');
         //Запрос списка сформирванных отчетов
         $reports_list = ReportSpeed::all()->sortByDesc('number');
@@ -160,9 +160,6 @@ class OverSpeedController extends Controller
             $viwParam['report_id'] = $report_id; //id - текущиего отчета
             $viwParam['reports'] = $report_track; //Треки текущего отчета сортированные по скоростям
         }
-        // $list - списка отчетов ,
-        // $report_id - id отчета,
-        // $report - список треков
         return view('speed_report.index', $viwParam);
     }
 

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
-    @include('track.header')
+    @include('header')
 
 </head>
 <body>

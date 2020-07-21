@@ -72,16 +72,16 @@
                         <div class="card-body">
                             <table id="myTable2" class="myTable table table-striped table-bordered" style="width:100%"> {{--class="table table-bordered table-hover table-sm table-responsive-sm">--}}
                                 <thead class="thead-light ">
-                    <tr>
-                        <th scope="col"> № </th>
-                        <th scope="col"> Дата </th>
-                        <th scope="col"> Длительность </th>
-                        <th scope="col"> Макс. скорость </th>
-                        <th scope="col"> Филиал </th>
-                        <th scope="col">Г.Н. </th>
-                    </tr>
-                    </thead>
-                                <tbody>
+                                    <tr>
+                                        <th scope="col"> № </th>
+                                        <th scope="col"> Дата </th>
+                                        <th scope="col"> Длительность </th>
+                                        <th scope="col"> Макс. скорость </th>
+                                        <th scope="col"> Филиал </th>
+                                        <th scope="col">Г.Н. </th>
+                                    </tr>
+                                </thead>
+                            <tbody>
 
 
             @elseif($row['max_speed'] <= 120 and $row['max_speed'] > 110  and $FLAG1 )

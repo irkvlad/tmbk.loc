@@ -25,10 +25,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //Отладка SQL запросов
-/*       DB::listen(function ($query){ // TODO: Закоментирова отладчик SQL запросов
+        /*   DB::listen(function ($query){ // TODO: Закоментирова отладчик SQL запросов
 
-            dump($query->sql);
-            dump($query->bindings);
-        });*/
+                 dump($query->sql);
+                 dump($query->bindings);
+             }); */
     }
 }

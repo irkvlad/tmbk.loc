@@ -19,6 +19,9 @@ Route::middleware(['password_expired'])->group(function () {
     Route::get('speed_report', 'OverSpeedController@index')->name('speed_report'); //Трекер отчеты
     Route::get('rec_rep.php', 'OverSpeedController@reconciliation_reports'); //Трекер отчеты
     Route::get('/', 'OverSpeedController@speed_reports')->name('home'); //Трекер отчеты
+    Route::get('getxls', 'GetxlsController@saveExcel'); //Чтения XLS отчета заправок и запись в базу
+    Route::get('gas_report', 'GasController@show_reports')->name('gas_report'); //Трекер отчеты
+    Route::post('gas_report', 'GasController@show_reports')->name('gas_report'); //Трекер отчеты
 });
 
 /*
@@ -40,7 +43,7 @@ Route::middleware(['password_expired'])->group(function () {
 //Route::get('tracker', 'TrackController@index')->name('published_at'); //Трекер отчеты
 //Route::get('tracker/{id}', 'TrackController@index'); // Получение отчета
 //Route::get('tracker', 'TrackController@index'); //Трекер отчеты
-Route::get('getxls', 'GetxlsController@saveExcel'); //Проба чтения XLS
+
 
 //Route::get('PHPEchelHelpWord', 'GetxlsController@PHPEchelHelpWord'); //Чтение HASH
 

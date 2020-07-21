@@ -25,15 +25,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-       /* $schedule->command('load_reports')
+        // $schedule->command('inspire')
+        //          ->hourly();
+        $schedule->command('load_reports')
             ->everyThirtyMinutes()
-            //->between('23:00', '24:00')
-            ->withoutOverlapping(10);//hourlyAt(53);*/
-
-        /* $schedule->command('load_gas_station')
-            ->everyThirtyMinutes()
-            //->between('23:00', '24:00')
-            ->withoutOverlapping(10);//hourlyAt(53);*/
+            ->between('22:00', '23:59')
+            ->withoutOverlapping(10);//hourlyAt(53);
     }
 
     /**

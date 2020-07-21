@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Log;
 
 class GetxlsController extends Controller
 {
+    public  function __construct()    {
+        $this->middleware('auth');
+    }
     public function saveExcel()
     {
         try {
@@ -35,25 +38,33 @@ class GetxlsController extends Controller
                             $iRow = $iRow + 2;
                             while (true) {
                                 $gas_station = new GasStation();
-                                $date = $oCells->get('A' . $iRow)->getFormattedValue();
-                                $gas_station->date = date('Y-m-d', strtotime($date));
-                                if (mb_strpos($date, 'того')) break;
+                                $cell = $oCells->get('A' . $iRow);
+                                $dCell= $cell->getValue();
+                                // Конец текущего блока заправок
+                                if(mb_strpos($dCell, 'того')) break;
+                                // Если ячека даты не пустая и число
+                                if( gettype($dCell) == 'integer'){
+                                    $date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($dCell);
+                                    $gas_station->date = $date;
+                                    ////if (mb_strpos($date, 'того')) break;
+                                    //if(get_class($date) == 'DataTime'){
+                                    $gas_station->qty = $oCells->get('C' . $iRow)->getValue();
+                                    $gas_station->service = $oCells->get('H' . $iRow)->getValue();
+                                    $gas_station->operation = $oCells->get('I' . $iRow)->getValue();
+                                    $gas_station->card_owner = $oCells->get('K' . $iRow)->getValue();
+                                    $gas_station->card_number = $oCells->get('J' . $iRow)->getValue();
+                                    $gas_station->card_group = $oCells->get('L' . $iRow)->getValue();
+                                    $gas_station->time = $oCells->get('B' . $iRow)->getValue();
+                                    $gas_station->amount = $oCells->get('D' . $iRow)->getValue();
+                                    // Если такая запись уже есть в базе
+                                    $gs_exist = GasStation::where('card_number', $gas_station->card_number)
+                                        ->where('date', date('Y-m-d', strtotime($gas_station->date)))
+                                        ->where('time', $gas_station->time)
+                                        ->first();
+                                    if ($gs_exist) break;
+                                    $gas_station->save();
+                                }
 
-                                $gas_station->qty = $oCells->get('C' . $iRow)->getValue();
-                                $gas_station->service = $oCells->get('H' . $iRow)->getValue();
-                                $gas_station->operation = $oCells->get('I' . $iRow)->getValue();
-                                $gas_station->card_owner = $oCells->get('K' . $iRow)->getValue();
-                                $gas_station->card_number = $oCells->get('J' . $iRow)->getValue();
-                                $gas_station->card_group = $oCells->get('L' . $iRow)->getValue();
-                                $gas_station->time = $oCells->get('B' . $iRow)->getValue();
-                                $gas_station->amount = $oCells->get('D' . $iRow)->getValue();
-
-                                $gs = GasStation::where('card_number', $gas_station->card_number)
-                                    ->where('date', date('Y-m-d', strtotime($gas_station->date)))
-                                    ->where('time', $gas_station->time)
-                                    ->first();
-                                if ($gs) break;
-                                $gas_station->save();
                                 $iRow++;
                             }
                         }
