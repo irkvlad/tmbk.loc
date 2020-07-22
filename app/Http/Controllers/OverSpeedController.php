@@ -31,15 +31,19 @@ class OverSpeedController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * Запрос отчета с ГдеМои
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
-//        dd($request->user());
         //Ключь в сесию
         $hash = getHashRomApi();
         $reportId = $request->get('id');
-
-//        $date1 = '2020-05-17 00:00:00';
-//        $date2 = '2020-05-23 23:59:59';
+        $spid[] = Config::get('track.spid1');
+        $spid[] = Config::get('track.spid2');
+        $spid[] = Config::get('track.spid3');
 
         //Запрос списка сформирванных отчетов
         $paramData = [
@@ -64,6 +68,7 @@ class OverSpeedController extends Controller
         if ($reportTrack) {
             $viwParam['report_id'] = $reportId; //id - текущий отчет
             $viwParam['report'] = $reportTrack['report']; //Отчет
+            $viwParam['spid'] = $spid; //Треки текущего отчета сортированные по скоростям
         }
 
         // $list - списка отчетов ,
@@ -93,14 +98,14 @@ class OverSpeedController extends Controller
         $reports_list = getReports($paramData, 'Отчет_сформированные_список');
         Log::info('OverSpidReports начинаю загрузку ');
         $str = "\nOverSpidReports начинаю загрузку ";
-        // TODO: Все ли отчеты в базе
+        // : Все ли отчеты в базе
         foreach ($reports_list['list'] as $list){
             $value = ReportSpeed::where('number', $list['id'])->exists();
             if(!$value) {
                 Log::info('__Загружаю треки по отчету: '.$list['id']);
                 $str .= "\n__Загружаю треки по отчету: ".$list['id'];
 
-                // TODO: Получить трек
+                // : Получить трек
                 //Получение списка треков в отчете по id
                 $paramData = [
                     'hash' => $hash,
@@ -110,7 +115,7 @@ class OverSpeedController extends Controller
                 Log::info('____Количество треков: '.count($report_tracks['report']['sheets']));
                 $str .= "\n____Количество треков: ".count($report_tracks['report']['sheets']);
 
-                // TODO: Записать трек в базу
+                // : Записать трек в базу
                 if($report_tracks['success']){
                     $report=getArrayTrack($report_tracks['report'],false);
                     Log::info('____Количество записей: '.count($report));
@@ -118,7 +123,7 @@ class OverSpeedController extends Controller
                     save_track($report, $list['id']);
                 }
 
-                // TODO: Если успешно записать отчет в базу
+                // : Если успешно записать отчет в базу
                 $save_treck = true;
                 if( $save_treck){
                     save_report($list);
@@ -133,9 +138,18 @@ class OverSpeedController extends Controller
 
     }
 
+    /**
+     * олучение отчета из базы
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function speed_reports(Request $request)
     {
         $report_id = $request->get('id');
+        $spid[] = Config::get('track.spid1');
+        $spid[] = Config::get('track.spid2');
+        $spid[] = Config::get('track.spid3');
+
         //Запрос списка сформирванных отчетов
         $reports_list = ReportSpeed::all()->sortByDesc('number');
 
@@ -159,8 +173,8 @@ class OverSpeedController extends Controller
             $viwParam['dravers'] = $dravers; //Отчеты сгрупированные по водителям
             $viwParam['report_id'] = $report_id; //id - текущиего отчета
             $viwParam['reports'] = $report_track; //Треки текущего отчета сортированные по скоростям
+            $viwParam['spid'] = $spid; //Треки текущего отчета сортированные по скоростям
         }
         return view('speed_report.index', $viwParam);
     }
-
 }

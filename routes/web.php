@@ -16,12 +16,12 @@ Route::get('passwords/expired', 'Auth\ExpiredPasswordController@expired')->name(
 Route::post('password/expired', 'Auth\ExpiredPasswordController@postExpired')->name('password.postExpired');
 
 Route::middleware(['password_expired'])->group(function () {
-    Route::get('speed_report', 'OverSpeedController@index')->name('speed_report'); //Трекер отчеты
-    Route::get('rec_rep.php', 'OverSpeedController@reconciliation_reports'); //Трекер отчеты
+    Route::get('speed_report', 'OverSpeedController@index')->name('speed_report'); //Получить с сайта ГдеМои отчеты
+    Route::get('rec_rep.php', 'OverSpeedController@reconciliation_reports'); //Загрузить отчеты
     Route::get('/', 'OverSpeedController@speed_reports')->name('home'); //Трекер отчеты
-    Route::get('getxls', 'GetxlsController@saveExcel'); //Чтения XLS отчета заправок и запись в базу
-    Route::get('gas_report', 'GasController@show_reports')->name('gas_report'); //Трекер отчеты
-    Route::post('gas_report', 'GasController@show_reports')->name('gas_report'); //Трекер отчеты
+    Route::get('getxls', 'GetxlsController@saveExcel'); //Чтения XLS отчета бензин заправок и запись в базу
+    Route::get('gas_report', 'GasController@show_reports')->name('gas_report'); //,бензин отчеты
+    Route::post('gas_report', 'GasController@show_reports')->name('gas_report'); //бензин отчеты
 });
 
 /*

@@ -7,9 +7,9 @@ return [
     |------------------------------
     |
     */
-    'spid1'=>110,
-    'spid2'=>120,
-    'spid3'=>130,
+    'spid1'=>130,
+    'spid2'=>140,
+    'spid3'=>150,
     'emls' => ['irkvlad@hotmail.com'],
     'pathGas' => 'public/files/gas',
     'pathReps' => 'public/files/reps',

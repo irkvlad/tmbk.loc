@@ -221,7 +221,7 @@ function getArrayTrack($reports,$flag=true){
                    if ($section['type'] == 'table') {
                        foreach ($section['data'] as $data) {
                            foreach ($data['rows'] as $row) {
-                               if ($row['max_speed']['v'] < 110) continue;
+                               if ($row['max_speed']['v'] < Config::get('track.spid1')) continue;
                                $reps[$index_rep]['data_header'] = $data['header'];
                                $reps[$index_rep]['start_time'] = $row['start_time']['v'];
                                $reps[$index_rep]['duration'] = $row['duration']['v'];

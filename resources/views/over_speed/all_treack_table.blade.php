@@ -47,9 +47,9 @@ foreach ($sheet['sections'] as $section ){
                         <tbody class="label">
                         <tr>
                             @php
-                                if($label['rows'][0]['max_speed']['raw'] > 130)     $style = 'list-group-item-danger';
-                                elseif($label['rows'][0]['max_speed']['raw'] > 120) $style = 'list-group-item-warning';
-                                elseif($label['rows'][0]['max_speed']['raw'] > 110) $style = 'list-group-item-success';
+                                if($label['rows'][0]['max_speed']['raw'] > $spid[2])     $style = 'list-group-item-danger';
+                                elseif($label['rows'][0]['max_speed']['raw'] > $spid[1]) $style = 'list-group-item-warning';
+                                elseif($label['rows'][0]['max_speed']['raw'] > $spid[0]) $style = 'list-group-item-success';
                                 else $style = '';
                                 @endphp
                             <td colspan="5" class="{{$style}}">

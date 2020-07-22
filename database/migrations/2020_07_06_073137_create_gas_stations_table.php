@@ -21,8 +21,8 @@ class CreateGasStationsTable extends Migration
             $table->string('service');
             $table->string('operation');
             $table->bigInteger('card_number');
-            $table->string('card_group');
-            $table->string('card_owner');
+            $table->string('card_group')->nullable();
+            $table->string('card_owner')->nullable();
             $table->string('time');
             $table->float('amount');
         });

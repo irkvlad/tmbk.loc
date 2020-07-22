@@ -41,9 +41,9 @@
                     <tbody class="label">
                         <tr>
                             @php
-                                if($max_speed_day['max_speed'] > 130)     $style = 'list-group-item-danger';
-                                elseif($max_speed_day['max_speed'] > 120) $style = 'list-group-item-warning';
-                                elseif($max_speed_day['max_speed'] > 110) $style = 'list-group-item-success';
+                                if($max_speed_day['max_speed'] > $spid[2])     $style = 'list-group-item-danger';
+                                elseif($max_speed_day['max_speed'] > $spid[1]) $style = 'list-group-item-warning';
+                                elseif($max_speed_day['max_speed'] > $spid[0]) $style = 'list-group-item-success';
                                 else $style = '';
                             @endphp
                             <td colspan="5" class="{{$style}}">

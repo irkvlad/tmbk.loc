@@ -20,13 +20,13 @@
         @php $FLAG2=true; @endphp
         @php $FLAG1=true; @endphp
         @foreach($reports as $row)
-            @if($row['max_speed'] > 130 and $FLAG3 )
+            @if($row['max_speed'] > $spid[2] and $FLAG3 )
                 @php $FLAG3=false;$style = 'list-group-item-danger';@endphp
                 <div class="card">
                     <div class="card-header" id="headingOne">
                         <h5 class="mb-0">
                             <button id='speed3' class="btn btn-link {{$style}}" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <b>[Скорости выше 130 км/ч]</b>
+                                <b>[Скорости выше {{$spid[2]}} км/ч]</b>
                                 <i> {{$row['max_speed']}}км/ч -
                                     {{$row['title']}} -
                                     {{$row['header']}}км/ч</i>
@@ -48,7 +48,7 @@
                                 </thead>
                                 <tbody>
 
-            @elseif($row['max_speed'] <= 130 and $row['max_speed'] > 120 and $FLAG2 )
+            @elseif($row['max_speed'] <= $spid[2] and $row['max_speed'] > $spid[1] and $FLAG2 )
                 @if(!$FLAG3)
                                 </tbody>
                             </table>
@@ -61,7 +61,7 @@
                     <div class="card-header" id="headingTwo">
                         <h5 class="mb-0">
                             <button  id='speed2'  class="btn btn-link collapsed {{$style}}" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                <b>[Скорости выше 120 км/ч]</b>
+                                <b>[Скорости выше {{$spid[1]}} км/ч]</b>
                                 <i> {{$row['max_speed']}}км/ч -
                                     {{$row['title']}} -
                                     {{$row['header']}}км/ч</i>
@@ -84,7 +84,7 @@
                             <tbody>
 
 
-            @elseif($row['max_speed'] <= 120 and $row['max_speed'] > 110  and $FLAG1 )
+            @elseif($row['max_speed'] <= $spid[1] and $row['max_speed'] > $spid[0]  and $FLAG1 )
                 @if(!$FLAG3 OR !$FLAG2)
                                 </tbody>
                             </table>
@@ -97,7 +97,7 @@
                     <div class="card-header" id="headingThree">
                         <h5 class="mb-0">
                             <button  id='speed1' class="btn btn-link collapsed {{$style}}" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                 <b>[Скорости выше 110 км/ч]</b>
+                                 <b>[Скорости выше {{$spid[0]}} км/ч]</b>
                                 <i> {{$row['max_speed']}}км/ч -
                                     {{$row['title']}} -
                                     {{$row['header']}}км/ч</i>
@@ -129,9 +129,9 @@
                                        </tr>
 
          @php
-              if ($row['max_speed'] >= 130)     $spid130++;
-              elseif ($row['max_speed'] >= 120) $spid120++;
-              elseif ($row['max_speed'] >= 110) $spid110++;
+              if ($row['max_speed'] >= $spid[2])     $spid130++;
+              elseif ($row['max_speed'] >= $spid[1]) $spid120++;
+              elseif ($row['max_speed'] >= $spid[0]) $spid110++;
          @endphp
          @endforeach <!--$row-->
                                 </tbody>
@@ -154,9 +154,9 @@
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Task', 'Максимальная скорость'],
-                ['Скорость\u00A0>110\u00A0({{$spid110}})', {{$spid110}}],
-                ['Скорость\u00A0>120\u00A0({{$spid120}})', {{$spid120}}],
-                ['Скорость\u00A0>130\u00A0({{$spid130}})', {{$spid130}}]
+                ['Скорость\u00A0>{{$spid[0]}}\u00A0({{$spid110}})', {{$spid110}}],
+                ['Скорость\u00A0>{{$spid[1]}}\u00A0({{$spid120}})', {{$spid120}}],
+                ['Скорость\u00A0>{{$spid[2]}}\u00A0({{$spid130}})', {{$spid130}}]
             ]);
             var options = {
                 title: 'Максимальная скорость',
@@ -186,9 +186,9 @@
 
                 $('#list-all-list').click();
 
-                if(value=='Скорость\u00A0>130\u00A0({{$spid130}})') {$('#speed3').click();setg='#speed3'}
-                if(value=='Скорость\u00A0>120\u00A0({{$spid120}})') {$('#speed2').click();setg='#speed2'}
-                if(value=='Скорость\u00A0>110\u00A0({{$spid110}})') {$('#speed1').click();setg='#speed1'}
+                if(value=='Скорость\u00A0>{{$spid[2]}}\u00A0({{$spid130}})') {$('#speed3').click();setg='#speed3'}
+                if(value=='Скорость\u00A0>{{$spid[1]}}\u00A0({{$spid120}})') {$('#speed2').click();setg='#speed2'}
+                if(value=='Скорость\u00A0>{{$spid[0]}}\u00A0({{$spid110}})') {$('#speed1').click();setg='#speed1'}
                   /*alert('The user selected ' + value);*/
                 $("html,body").scrollTop($(setg).offset().top);
 

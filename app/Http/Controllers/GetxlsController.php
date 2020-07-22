@@ -23,6 +23,8 @@ class GetxlsController extends Controller
     }
     public function saveExcel()
     {
+        $path_parts = pathinfo($_SERVER['SCRIPT_FILENAME']); // определяем директорию скрипта
+        chdir($path_parts['dirname']); // задаем директорию выполнение скрипта
         try {
             $sFile = 'gas_station/gas_station.xls';
             $oSpreadsheet = IOFactory::load($sFile);
@@ -79,10 +81,12 @@ class GetxlsController extends Controller
                 Log::info('saveExcel -- gas_station/gas_station.xls -- удален');
             else
                 Log::info('saveExcel -- gas_station/gas_station.xls -- не удален');
+
         }
         catch (Throwable $e){
-            Log::info('saveExcel -- gas_station/gas_station.xls -- Ошибка -- '.$e);
-    }
+            Log::info('saveExcel -- gas_station/gas_station.xls -- Ошибка -- '.$e.'!!!');
+            Log::info('saveExcel -- gas_station/gas_station.xls !!! $path_parts'.implode($path_parts).'!!!');
+        }
     }
 }
 
