@@ -76,10 +76,13 @@
 
         @foreach($gas_on_cards as $card )
             @php
-                $card_owner = explode(' ', $card[0]->card_owner);
-                $name_tab =  $card_owner[0] .' '. mb_substr($card_owner[1], 0,1).'.';
+                if($card[0]->card_owner <>''){
+                    $card_owner = explode(' ', $card[0]->card_owner);
+                    $name_tab =  $card_owner[0] .' '. mb_substr($card_owner[1], 0,1).'.';
+                }
+                else $name_tab = $card[0]->card_number;
             @endphp
-            <a class="list-group-item list-group-item-action" id="list-{{$loop->index}}-list" href="#list-{{$loop->index}}" role="tab" aria-controls="controls-{{$loop->index}}">
+            <a class="list-group-item list-group-item-action {{$card[0]->card_number}}" id="list-{{$loop->index}}-list" href="#list-{{$loop->index}}" role="tab" aria-controls="controls-{{$loop->index}}">
                 {{$name_tab}}</a>
         @endforeach
     </div>
@@ -136,6 +139,12 @@
             i++;
         }
     })
+
+    $('#list-tab a').on('shown.bs.tab', function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+
 </script>
 
 @endsection

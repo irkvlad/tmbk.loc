@@ -35,8 +35,10 @@
         $card_group =$row[0]['card_group'];
         $card_number =$row[0]['card_number'];
         $card_owner =$row[0]['card_owner'];
-        $card_owner_exp = explode(' ', $row[0]->card_owner);
-        $name_tab =  $card_owner_exp[0] .' '. mb_substr($card_owner_exp[1], 0,1).'.';
+        if($card_owner <>'')
+            {$card_owner_exp = explode(' ', $row[0]->card_owner);
+            $name_tab =  $card_owner_exp[0] .' '. mb_substr($card_owner_exp[1], 0,1).'.';}
+        else $name_tab = $card_number;
 
     @endphp
 
@@ -44,7 +46,7 @@
     @foreach($row as $data)
         @php  $qty +=$data['qty'];   @endphp
     @endforeach <!--$data-->
-            <tr class="ahrev" hrev="{{$name_tab}}">
+            <tr class="ahrev" hrev="{{$card_number}}">
                 <td>{{$loop->index}}</td>
                 <td>{{$qty}}</td>
                 <td>{{$amount}}</td>
@@ -94,6 +96,7 @@
     // Перемещение к соответвствующей вкладке
     $('tr.ahrev').on('click', function() {
         var vtext=$(this).attr("hrev");
-        $('a:contains('+vtext+')').click();
+        //$('a:contains('+vtext+')').click();
+        $('a.'+vtext).click();
     });
 </script>
